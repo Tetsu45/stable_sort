@@ -16,20 +16,20 @@ Card* read_input(int* num_cards){
     } 
     return cards;
 }
-is_stable(Card* cards1,Card* cards2,int* num_cards){
+bool is_stable(Card* cards1,Card* cards2,int* num_cards){
     int count[10] = {0};
-    for(int k = 0; k <*num_cards;k++) count[cards1[i].value]++;
+    for(int k = 0; k <*num_cards;k++) count[cards1[k].value]++;
     int index[10];
-    for(int h = 0; h<10;k++) index[h] = count[h];
-    for(int z = i; z <10;z++) index[z] = index[z-1];
+    for(int h = 0; h<10;h++) index[h] = count[h];
+    for(int z = 1; z <10;z++) index[z] = index[z-1];
     Card *temp =  new Card[*num_cards];
     for (int i = *num_cards - 1; i >= 0; i--) {
-        temp[index[cards2[i].value] - 1] = cards[i];
+        temp[index[cards2[i].value] - 1] = cards2[i];
         index[cards2[i]]--;
     }
 
     bool stable = true;
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < *num_cards - 1; i++) {
         if (temp[i].value == temp[i + 1].value && temp[i].suit < temp[i + 1].suit) {
             stable = false;
             break;
@@ -38,21 +38,21 @@ is_stable(Card* cards1,Card* cards2,int* num_cards){
     delete[] temp;
     return stable;
 }
-int* bubble_cards(Card *cards,int* num_cards){
+Card* bubble_cards(Card *cards,int* num_cards){
     Card* bubble_cards = new Card[*num_cards];
     for (int ix = 0; ix < *num_cards; ix++) {
     for (int jx = *num_cards - 1; jx >= ix + 1; jx--) {
-        if (arr[jx].value < arr[jx - 1].value) {
-            int temp = arr[jx - 1];
-            arr[jx - 1] = arr[jx];
-            arr[jx] = temp;
+        if (cards[jx].value < cards[jx - 1].value) {
+            Card temp = cards[jx - 1];
+            cards[jx - 1] = cards[jx];
+            cards[jx] = temp;
         }
     }
 }
 bubble_cards = cards;
-return bubble_cards
+return bubble_cards;
 }
-int* selection_cards(Card *cards,int* num_cards){
+Card* selection_cards(Card *cards,int* num_cards){
     Card* selection_cards = new Card[*num_cards];
     for(int i = 0;i < *num_cards ; i++){
         int min = i;
@@ -71,13 +71,13 @@ int* selection_cards(Card *cards,int* num_cards){
     return  selection_cards;
 }
 int main(){
-    int num_cards = 0
+    int num_cards = 0;
     cin >> num_cards;
-    if (n< 1 || n > 36) return -1;
-    int* cards = read_input(&num_cards);
-    int* orginal = cards;
-    int* select_sorted =  selection_cards(cards,&num_cards);
-    int* bubble_sorted = bubble_cards(cards,&num_cards);
+    if (num_cards< 1 || num_cards > 36) return -1;
+    Card* cards = read_input(&num_cards);
+    Card* orginal = cards;
+    Card* select_sorted =  selection_cards(cards,&num_cards);
+    Card* bubble_sorted = bubble_cards(cards,&num_cards);
     for(int hx = 0; hx < num_cards;hx++){
         if(hx == num_cards-1){
             cout << bubble_sorted[hx] << "\n";
@@ -89,7 +89,7 @@ int main(){
     }
     else cout << "Not stable" << "\n";
     for (int ex = 0; ex < num_cards;ex++){
-        if(ex == num_cards-1) cou << select_sorted[ex] << "\n";
+        if(ex == num_cards-1) cout << select_sorted[ex] << "\n";
         else cout << select_sorted[ex] << " ";
     }
     if (is_stable(cards,bubble_sorted,&num_cards)){

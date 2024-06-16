@@ -31,10 +31,10 @@ bool is_stable(Card* cards1, Card* cards2, int num_cards) {
         index[cards2[i].value]--;
     }
 
-    bool stable = false;
-    for (int i = 0; i < num_cards - 1; i++) {
+    bool stable = true;
+    for (int i = num_cards-1; i >= 0; i++) {
         if (temp[i].value == temp[i + 1].value && temp[i].suit < temp[i + 1].suit) {
-            stable = true;
+            stable = false;
             break;
         }
     }

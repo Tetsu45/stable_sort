@@ -32,7 +32,7 @@ bool is_stable(Card* cards1, Card* cards2, int num_cards) {
     }
 
     bool stable = true;
-    for (int i = num_cards-1; i >= 0; i++) {
+    for (int i = num_cards-1; i >= 0; i--) {
         if (temp[i].value == temp[i + 1].value && temp[i].suit < temp[i + 1].suit) {
             stable = false;
             break;

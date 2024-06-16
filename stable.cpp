@@ -16,6 +16,28 @@ int* read_input(int* num_cards){
     } 
     return cards;
 }
+is_stable(Card* cards1,Card* cards2,int* num_cards){
+    int count[10] = {0};
+    for(int k = 0; k <*num_cards;k++) count[cards1[i].value]++;
+    int index[10];
+    for(int h = 0; h<10;k++) index[i] = count[i];
+    for(int z = i; z <10;z++) index[z] = index[z-1];
+    Card *temp =  new Card[*num_cards];
+    for (int i = n - 1; i >= 0; i--) {
+        temp[index[cards2[i].value] - 1] = cards[i];
+        index[cards2[i]]--;
+    }
+
+    bool stable = true;
+    for (int i = 0; i < n - 1; i++) {
+        if (temp[i].value == temp[i + 1].value && temp[i].suit < temp[i + 1].suit) {
+            stable = false;
+            break;
+        }
+    }
+    delete[] temp;
+    return stable;
+}
 int* bubble_cards(Card *cards,int* num_cards){
     Card* bubble_cards = new Card[*num_cards];
     for (int ix = 0; ix < *num_cards; ix++) {
@@ -56,5 +78,27 @@ int main(){
     int* orginal = cards;
     int* select_sorted =  selection_cards(cards,&num_cards);
     int* bubble_sorted = bubble_cards(cards,&num_cards);
+    for(int hx = 0; hx < num_cards;hx++){
+        if(hx == num_cards-1){
+            cout << bubble_sorted[hx] << "\n";
+        }
+        else cout << bubble_sorted[hx] << " ";
+    }
+    if (is_stable(cards,bubble_sorted,&num_cards)){
+        cout << "Stable" << "\n";
+    }
+    else cout << "Not stable" << "\n";
+    for (int ex = 0; ex < num_cards;ex++){
+        if(ex == num_cards-1) cou << select_sorted[ex] << "\n";
+        else cout << select_sorted[ex] << " ";
+    }
+    if (is_stable(cards,bubble_sorted,&num_cards)){
+        cout << "Stable" << "\n";
+    }
+    else cout << "Not stable" << "\n";
+    delete[] cards;
+    delete[] orginal;
+    delete[] select_sorted;
+    delete[] bubble_sorted;
     return 0;
 }

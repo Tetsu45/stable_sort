@@ -4,6 +4,7 @@ using namespace std;
 int getSuitValue(char suit);
 void selection_sort(Card* cards,int* num_cards);
 bool compare_funtion(int* num1,int* num2);
+int* orderDet(int * arr);
 struct Card{
     char suit;
     int value;
@@ -19,31 +20,36 @@ bool read_input(){
         cin.get();//removes new line
         cards.suit = input[0];
         cards.value = input[1] - '0';//coversion of char into integer!
-    }
-
-    
-    delete[] *cards;
+    } 
+    delete[] cards;
 }
 void selection_sort(Card* cards,int* num_cards){
     Card *selection_cards = new Card[*num_cards];
+    int *arr_index =  NULL;
+    int cnt = 0;
+    int cnt_capacity = 0;
     for (int i = 0; i < *num_cards-1;i++){
         int min = i;
         for(int j = i+1;j<*num_cards;j++){
             if (cards[j].value == cards[j-1].value){
-                int val1 = getSuitValue(cards[j].suit);
-                int val2 = getSuitValue(cards[j-1].suit);
-                if (val1 < val2) min = j;
+               
             }
             if (cards[j].value < cards[j-1].value){
                 min = j;
             }
         }
         if (min !=  i){
+            Card temp =  cards[min];
+            cards[min] = cards[i];
+            cards[i] = cards[min];
             
         }
     }
-
-    delete[] *selection_cards;
+    for (int ix = 0; ix <*num_cards; ix++){
+        
+    }
+    delete[] arr_index;
+    delete[] selection_cards;
 }
 int getSuitValue(char suit){
     switch(suit):

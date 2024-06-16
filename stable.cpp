@@ -4,15 +4,15 @@ using namespace std;
 struct Card{
     char suit;
     int value;
-}
-int* read_input(int* num_cards){
+};
+Card* read_input(int* num_cards){
     Card *cards = new Card[*num_cards];
     for(int i = 0;i< *num_cards; i++){
         char input[3];
         cin.get(input,3);
         cin.get();//removes new line
-        cards.suit = input[0];
-        cards.value = input[1] - '0';//coversion of char into integer!
+        cards[i].suit = input[0];
+        cards[i].value = input[1] - '0';//coversion of char into integer!
     } 
     return cards;
 }
@@ -20,10 +20,10 @@ is_stable(Card* cards1,Card* cards2,int* num_cards){
     int count[10] = {0};
     for(int k = 0; k <*num_cards;k++) count[cards1[i].value]++;
     int index[10];
-    for(int h = 0; h<10;k++) index[i] = count[i];
+    for(int h = 0; h<10;k++) index[h] = count[h];
     for(int z = i; z <10;z++) index[z] = index[z-1];
     Card *temp =  new Card[*num_cards];
-    for (int i = n - 1; i >= 0; i--) {
+    for (int i = *num_cards - 1; i >= 0; i--) {
         temp[index[cards2[i].value] - 1] = cards[i];
         index[cards2[i]]--;
     }

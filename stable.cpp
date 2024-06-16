@@ -20,28 +20,28 @@ Card* read_input(int* num_cards) {
 }
 
 bool is_stable(Card* cards1, Card* cards2, int num_cards) {
-    int count[10] = {0};
-    for (int k = 0; k < num_cards; k++) count[cards1[k].value]++;
-    int index[10];
-    for (int h = 0; h < 10; h++) index[h] = count[h];
-    for (int z = 1; z < 10; z++) index[z] += index[z - 1];
-    Card* temp = new Card[num_cards];
-    for (int i = num_cards - 1; i >= 0; i--) {
-        temp[index[cards2[i].value] - 1] = cards2[i];
-        index[cards2[i].value]--;
-    }
-
     bool stable = true;
-    for (int i = 0; i < num_cards-1; i++) {
-        if (temp[i].value == temp[i + 1].value && temp[i].suit < temp[i + 1].suit) {
-            stable = false;
-            break;
+    for (int i = 0; i < num_cards - 1; i++) {
+        if (cards1[i].value == cards1[i + 1].value) {
+            int pos1 = -1, pos2 = -1;
+            for (int j = 0; j < num_cards; j++) {
+                if (cards2[j].value == cards1[i].value) {
+                    if (pos1 == -1) {
+                        pos1 = j;
+                    } else {
+                        pos2 = j;
+                        break;
+                    }
+                }
+            }
+            if (pos1 > pos2) {
+                stable = false;
+                break;
+            }
         }
     }
-    delete[] temp;
     return stable;
 }
-
 Card* bubble_sort(Card* cards, int num_cards) {
     Card* bubble_cards = new Card[num_cards];
     memcpy(bubble_cards, cards, num_cards * sizeof(Card));
